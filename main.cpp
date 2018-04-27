@@ -109,18 +109,12 @@ void processFrame(cv::Mat frame)
     }
 }
 
-// ===
-// Code below im not sure about i was just playing with it
-// ===
-
 void detectCircles(cv::Mat src, cv::Mat orig) {
     cv::Mat circles = src.clone();
     
     // Store the found contour points here
     std::vector<std::vector<cv::Point> > contours;
-    std::vector<cv::Vec4i> hierarchy; /// not sure what this is for...
-    
-        // not sure about this... cv::absdiff(src, backgroundFrame, frame);
+    std::vector<cv::Vec4i> hierarchy;
     
     // Binary image it
     cv::threshold(circles, circles, 150,255, cv::THRESH_BINARY );
@@ -138,10 +132,7 @@ void detectCircles(cv::Mat src, cv::Mat orig) {
         // Get the area of the dominoe?
         double domContourArea = cv::contourArea(contours[i]);
         
-        // std::cout << "Contour " << i << " area is " << domContourArea << std::endl;
-        
         // filter to make sure we found the actual dominoes
-        // *** NOTE --- THIS MAY NEED TO CHANGE DEPENDING ON LOCATION OF CAMERA AND ROOM LIGHTING ***
         if(domContourArea > lowerT && domContourArea < upperT)
         {
             // Get rectangle of the dominoes
